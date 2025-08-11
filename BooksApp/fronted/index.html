@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Librarian</title>
+  <!-- Încarcă stilurile din /static/css -->
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <h1>Smart Librarian</h1>
+  </header>
+
+  <main>
+    <!-- Recomandări -->
+    <section id="recommend-section">
+      <h2>Recomandă Cărți</h2>
+      <input type="text" id="query-input" placeholder="Introduceți o temă..." />
+      <button id="recommend-btn">Obține Recomandări</button>
+      <ul id="recommendations-list"></ul>
+    </section>
+
+    <!-- Rezumat -->
+    <section id="summary-section">
+      <h2>Rezumat Carte</h2>
+      <input type="text" id="title-input" placeholder="Introduceți titlul cărții..." />
+      <button id="summary-btn">Obține Rezumat</button>
+      <div id="summary-result"></div>
+    </section>
+  </main>
+
+  <!-- Încarcă scriptul din /static/js -->
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
