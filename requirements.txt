@@ -1,0 +1,6 @@
+openai
+python-dotenv
+flask
+chromadb
+fastapi
+pydantic-settings

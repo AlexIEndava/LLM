@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Smart Librarian</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+  <!-- Include Header -->
+  <div data-include="/static/components/header.html"></div>
+<main>
+  <!-- Include Recomandări -->
+  <div data-include="/static/components/recommend.html"></div>
+
+  <!-- Include Rezumat -->
+  <div data-include="/static/components/summary.html"></div>
+</main>
+
+  <!-- Script încărcare componente HTML -->
+  <script>
+    // Încarcă toate componentele și apoi pornește JS-ul aplicației
+    Promise.all(
+      Array.from(document.querySelectorAll("[data-include]")).map(el =>
+        fetch(el.getAttribute("data-include"))
+          .then(resp => resp.text())
+          .then(html => { el.innerHTML = html; })
+      )
+    ).then(() => {
+      // Încarcă scriptul principal după ce toate componentele au fost inserate
+      const script = document.createElement('script');
+      script.src = "/static/js/app.js";
+      document.body.appendChild(script);
+    });
+  </script>
+</body>
+</html>
