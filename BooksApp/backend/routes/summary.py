@@ -1,21 +1,13 @@
 # backend/routes/summary.py
-
-from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel
+from flask import Blueprint, request, jsonify
 from backend.services.openai_client import get_summary_by_title
 
-class SummaryResponse(BaseModel):
-    title: str
-    summary: str
+summary_router = Blueprint("summary", __name__)
 
-router = APIRouter()
-
-@router.get("/", response_model=SummaryResponse)
-async def summary(title: str):
-    """
-    Primește /summary?title=... și returnează {"title":..., "summary": ...}
-    """
+@summary_router.route("/", methods=["GET"])
+def summary():
+    title = request.args.get("title", "")
     summary_text = get_summary_by_title(title)
     if not summary_text:
-        raise HTTPException(status_code=404, detail="Titlu negăsit")
-    return {"title": title, "summary": summary_text}
+        return jsonify({"error": "Titlu negăsit"}), 404
+    return jsonify({"title": title, "summary": summary_text})
