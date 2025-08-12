@@ -1,22 +1,12 @@
 # backend/routes/recommend.py
-
-from fastapi import APIRouter
-from pydantic import BaseModel
+from flask import Blueprint, request, jsonify
 from backend.services.retriever import retrieve_recommendations
 
-# instanțiezi router-ul
-router = APIRouter()
+recommend_router = Blueprint("recommend", __name__)
 
-# definește aici modelul de request
-class RecommendRequest(BaseModel):
-    query: str
-
-
-@router.post("/", response_model=list[dict])
-async def recommend(req: RecommendRequest):
-    """
-    Primește {"query": "..."} și returnează o listă de recomandări:
-    [{ "title": str, "score": float }, ...]
-    """
-    results = retrieve_recommendations(req.query)
-    return results
+@recommend_router.route("/", methods=["POST"])
+def recommend():
+    data = request.get_json()
+    query = data.get("query", "")
+    results = retrieve_recommendations(query)
+    return jsonify(results)
