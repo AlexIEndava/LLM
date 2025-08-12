@@ -2,14 +2,15 @@
 
 from fastapi import APIRouter
 from pydantic import BaseModel
-from services.retriever import retrieve_recommendations
+from backend.services.retriever import retrieve_recommendations
+
+# instanțiezi router-ul
+router = APIRouter()
 
 # definește aici modelul de request
 class RecommendRequest(BaseModel):
     query: str
 
-# instanțiezi router-ul
-router = APIRouter()
 
 @router.post("/", response_model=list[dict])
 async def recommend(req: RecommendRequest):

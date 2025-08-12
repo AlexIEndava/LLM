@@ -1,9 +1,8 @@
 # backend/services/retriever.py
 
 import openai
-import chromadb
 from chromadb import PersistentClient
-from utils.config import OPENAI_API_KEY, PERSIST_DIRECTORY
+from backend.utils.config import OPENAI_API_KEY, PERSIST_DIRECTORY
 
 # Configure OpenAI API key
 openai.api_key = OPENAI_API_KEY

@@ -3,8 +3,9 @@
 import os
 from dotenv import load_dotenv
 
-# Încarcă variabilele din .env în environment
-load_dotenv()
+# Încarcă variabilele din .env din backend/
+dotenv_path = os.path.join(os.path.dirname(__file__), '..', '.env')
+load_dotenv(dotenv_path)
 
 # Extrage cheia OpenAI
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")

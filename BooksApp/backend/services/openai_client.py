@@ -2,11 +2,11 @@
 
 import json
 import os
+from backend.utils.config import OPENAI_API_KEY
 
 # cale relativă către book_summaries.json
-DATA_FILE = os.path.normpath(
-    os.path.join(os.path.dirname(__file__), '..', 'data', 'book_summaries.json')
-)
+
+DATA_FILE = os.path.join(os.path.dirname(__file__), '..', 'data', 'book_summaries.json')
 
 def get_summary_by_title(title: str) -> str:
     """

@@ -2,7 +2,7 @@
 
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from services.openai_client import get_summary_by_title
+from backend.services.openai_client import get_summary_by_title
 
 class SummaryResponse(BaseModel):
     title: str

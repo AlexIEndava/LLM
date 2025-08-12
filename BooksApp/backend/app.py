@@ -5,8 +5,8 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
-from routes.recommend import router as recommend_router
-from routes.summary   import router as summary_router
+from backend.routes.recommend import router as recommend_router
+from backend.routes.summary import router as summary_router
 
 app = FastAPI(
     title="Smart Librarian API",
