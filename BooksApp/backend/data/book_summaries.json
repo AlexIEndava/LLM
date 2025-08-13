@@ -1,50 +1,50 @@
 [
   {
-    "titlu": "Cele 7 deprinderi ale persoanelor eficace",
-    "autor": "Stephen R. Covey",
-    "gen": "Self-help / Leadership",
-    "descriere": "Stephen Covey prezintă şapte deprinderi fundamentale pentru eficacitatea personală şi profesională, plecând de la principii solide şi integritate. Cartea explică importanţa proactivităţii, a definirii clare a obiectivelor şi a relaţiilor avantajoase win-win. Încurajează o viaţă echilibrată prin dezvoltarea în domeniile fizic, mental, emoţional şi spiritual."
+    "title": "The 7 Habits of Highly Effective People",
+    "author": "Stephen R. Covey",
+    "genre": "Self-help / Leadership",
+    "description": "Stephen Covey presents seven fundamental habits for personal and professional effectiveness, based on solid principles and integrity. The book explains the importance of proactivity, clear goal setting, and win-win relationships. It encourages a balanced life through development in physical, mental, emotional, and spiritual areas."
   },
   {
-    "titlu": "Cartea gesturilor",
-    "autor": "Peter Collett",
-    "gen": "Non-fiction / Comunicare corporală",
-    "descriere": "Peter Collett analizează limbajul trupului şi semnificaţia subtilă a gesturilor în interacţiunile umane. Oferă exemple practice pentru interpretarea mişcărilor mâinilor, posturii şi expresiilor faciale. Ajută cititorul să îşi îmbunătăţească abilităţile de comunicare nonverbală şi empatie."
+    "title": "The Book of Gestures",
+    "author": "Peter Collett",
+    "genre": "Non-fiction / Body Language",
+    "description": "Peter Collett analyzes body language and the subtle meaning of gestures in human interactions. He provides practical examples for interpreting hand movements, posture, and facial expressions. The book helps readers improve their nonverbal communication skills and empathy."
   },
   {
-    "titlu": "Elon Musk: Tesla, SpaceX și misiunea viitorului",
-    "autor": "Ashlee Vance",
-    "gen": "Biografie / Business / Tehnologie",
-    "descriere": "Ashlee Vance oferă o privire detaliată asupra vieţii şi carierei lui Elon Musk, de la PayPal la revoluţia Tesla şi SpaceX. Ilustrează modul în care Musk inovează şi îşi asumă riscuri uriaşe pentru a schimba industrii întregi. Cartea pune accent pe viziunea futuristă şi pe disciplina de neegalat a acestuia."
+    "title": "Elon Musk: Tesla, SpaceX, and the Quest for a Fantastic Future",
+    "author": "Ashlee Vance",
+    "genre": "Biography / Business / Technology",
+    "description": "Ashlee Vance offers a detailed look at the life and career of Elon Musk, from PayPal to the Tesla and SpaceX revolution. The book illustrates how Musk innovates and takes huge risks to change entire industries. It emphasizes his futuristic vision and unmatched discipline."
   },
   {
-    "titlu": "Losing My Virginity",
-    "autor": "Richard Branson",
-    "gen": "Autobiografie / Antreprenoriat",
-    "descriere": "Richard Branson îşi povesteşte călătoria de la tânărul rebel al Virgin Records la magnatul recunoscut mondial. Împărtăşeşte strategii neconvenţionale, lecţii despre asumarea riscurilor şi modul în care a construit un imperiu diversificat. O mărturie inspiraţională despre curaj, creativitate şi perseverenţă."
+    "title": "Losing My Virginity",
+    "author": "Richard Branson",
+    "genre": "Autobiography / Entrepreneurship",
+    "description": "Richard Branson shares his journey from the rebellious young man at Virgin Records to a world-renowned business magnate. He shares unconventional strategies, lessons about risk-taking, and how he built a diversified empire. An inspirational testimony about courage, creativity, and perseverance."
   },
   {
-    "titlu": "Small Data",
-    "autor": "Martin Lindström",
-    "gen": "Marketing / Psihologie / Business",
-    "descriere": "Martin Lindström arată cum observaţiile minuţioase şi detaliile aparent nesemnificative ('small data') pot genera insighturi mai valoroase decât volumele uriaşe de big data. Cartea combină studii de caz şi tehnici de cercetare etnografică pentru a înţelege nevoile ascunse ale consumatorilor. Învăţă cum să interpretezi indicii subtile din comportamentul uman."
+    "title": "Small Data",
+    "author": "Martin Lindström",
+    "genre": "Marketing / Psychology / Business",
+    "description": "Martin Lindström shows how careful observations and seemingly insignificant details ('small data') can generate more valuable insights than huge volumes of big data. The book combines case studies and ethnographic research techniques to understand consumers' hidden needs. Learn how to interpret subtle clues in human behavior."
   },
   {
-    "titlu": "Brain Architecture",
-    "autor": "Larry W. Swanson",
-    "gen": "Neuroscience / Știință",
-    "descriere": "Larry Swanson oferă o introducere clară în structura şi funcţiile creierului uman, de la nivel molecular la reţele neuronale. Explică evoluţia sistemelor de procesare a informaţiei şi modul în care acestea influenţează comportamentul. Cartea este un ghid accesibil pentru a înţelege bazele anatomice ale funcţiilor cognitive."
+    "title": "Brain Architecture",
+    "author": "Larry W. Swanson",
+    "genre": "Neuroscience / Science",
+    "description": "Larry Swanson provides a clear introduction to the structure and functions of the human brain, from the molecular level to neural networks. He explains the evolution of information processing systems and how they influence behavior. The book is an accessible guide to understanding the anatomical basis of cognitive functions."
   },
   {
-    "titlu": "Omul în căutarea sensului vieții",
-    "autor": "Viktor E. Frankl",
-    "gen": "Psihologie / Memorii",
-    "descriere": "Viktor Frankl descrie experienţa sa din lagărele de concentrare naziste şi dezvoltă logoterapia, teoria conform căreia căutarea unui sens al vieţii este motivaţia principală a omului. Prezintă cazuri clinice şi exemple din viaţă reală pentru a ilustra cum sensul ajută la supravieţuire. O lecţie profundă despre rezilienţă şi importanţa scopului."
+    "title": "Man's Search for Meaning",
+    "author": "Viktor E. Frankl",
+    "genre": "Psychology / Memoir",
+    "description": "Viktor Frankl describes his experience in Nazi concentration camps and develops logotherapy, the theory that the search for meaning is man's primary motivation. He presents clinical cases and real-life examples to illustrate how meaning helps survival. A profound lesson on resilience and the importance of purpose."
   },
   {
-    "titlu": "Can't Hurt Me",
-    "autor": "David Goggins",
-    "gen": "Autobiografie / Self-help",
-    "descriere": "David Goggins povesteşte cum a transformat traumele copilăriei şi provocările fizice extreme într-un mindset invincibil. Împărtăşeşte tehnici de disciplină dură, auto-motivaţie şi depăşire a limitelor percepute. O carte motivantă care te provoacă să renunţi la scuze și să îți întărești voința."
+    "title": "Can't Hurt Me",
+    "author": "David Goggins",
+    "genre": "Autobiography / Self-help",
+    "description": "David Goggins tells how he transformed childhood traumas and extreme physical challenges into an invincible mindset. He shares techniques for tough discipline, self-motivation, and overcoming perceived limits. A motivational book that challenges you to stop making excuses and strengthen your willpower."
   }
 ]
