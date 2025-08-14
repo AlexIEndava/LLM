@@ -1,14 +1,25 @@
 // Funcție pentru recomandări
 document.getElementById('recommend-btn').addEventListener('click', async () => {
   const query = document.getElementById('query-input').value;
+  const list = document.getElementById('recommendations-list');
+  const vulgarDiv = document.getElementById('vulgar-message');
+  list.innerHTML = '';
+  vulgarDiv.textContent = '';
+
   const response = await fetch('/recommend/', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ query })
   });
   const data = await response.json();
-  const list = document.getElementById('recommendations-list');
-  list.innerHTML = '';
+
+  // Dacă backend-ul returnează un câmp special pentru vulgaritate
+  if (data.vulgar_message) {
+    vulgarDiv.textContent = data.vulgar_message;
+    return;
+  }
+
+  // Altfel, afișează recomandările
   data.forEach(item => {
     const li = document.createElement('li');
     li.textContent = `${item.title} (scor: ${item.score.toFixed(2)})`;
