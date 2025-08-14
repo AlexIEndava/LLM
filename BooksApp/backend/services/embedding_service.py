@@ -1,12 +1,12 @@
 # backend/services/embedding_service.py
 
+#python -m backend.services.embedding_service
+
 import json
 import os
-from openai import OpenAI
 from chromadb import PersistentClient
-from backend.utils.config import OPENAI_API_KEY, PERSIST_DIRECTORY
-
-client = OpenAI(api_key=OPENAI_API_KEY)
+from backend.utils.config import PERSIST_DIRECTORY
+from backend.services.llm_client import get_embedding
 
 # Initialize ChromaDB client
 chroma_client = PersistentClient(path=PERSIST_DIRECTORY)
@@ -22,20 +22,24 @@ def generate_embeddings():
         books = json.load(file)
 
     for book in books:
-        description = book.get('descriere') or book.get('description')
-        title = book.get('titlu') or book.get('title')
+        # Folosește cheile în engleză
+        title = book.get('title')
+        author = book.get('author')
+        genre = book.get('genre')
+        description = book.get('description')
 
-        # Obține embedding pentru descriere
-        response = client.embeddings.create(
-            input=[description],
-            model="text-embedding-3-small"
-        )
-        embedding = response.data[0].embedding
+        # Obține embedding pentru descriere folosind funcția din llm_client.py
+        embedding = get_embedding(description)
 
-        # Store embedding in ChromaDB
+        # Store embedding in ChromaDB cu toate metadatele
         collection.add(
             embeddings=[embedding],
-            metadatas=[{"title": title}],
+            metadatas=[{
+                "title": title,
+                "author": author,
+                "genre": genre,
+                "description": description
+            }],
             ids=[title.replace(" ", "_")]
         )
 
