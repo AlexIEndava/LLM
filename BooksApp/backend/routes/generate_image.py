@@ -3,6 +3,7 @@ from backend.services.llm_client import generate_and_save_image
 from backend.services.embedding_service import update_book_embedding
 import json
 import os
+import random
 
 bp = Blueprint('generate_image', __name__)
 
@@ -18,7 +19,7 @@ def generate_image():
     if not title or not author:
         return jsonify({'error': 'Missing title or author'}), 400
 
-    prompt = f"A creative book cover for '{title}' by {author}"
+    prompt = f"A creative book cover for '{title}' by {author}. Style: {random.choice(['minimalist', 'vintage', 'modern', 'abstract', 'colorful', 'surreal', 'pop-art', 'expressionist'])}. Unique details: {random.randint(1000, 9999)}"
     filename = f"{title.lower().replace(' ', '_').replace(':', '').replace(',', '')}.png"
     filepath = os.path.join(IMAGES_DIR, filename)
 

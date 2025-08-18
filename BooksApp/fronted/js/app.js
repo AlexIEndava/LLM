@@ -58,7 +58,7 @@ function createBookCard(book) {
   if (book.image) {
     const img = document.createElement('img');
     img.className = 'book-image';
-    img.src = `/book_images/${book.image}`;
+    img.src = `/book_images/${book.image}?v=${Date.now()}`;
     img.alt = book.title;
     front.appendChild(img);
 
@@ -77,8 +77,9 @@ function createBookCard(book) {
       });
       const data = await resp.json();
       if (data.success) {
-        img.remove();
-        delBtn.remove();
+        book.image = ""; // actualizezi obiectul carte
+        const newCard = createBookCard(book);
+        card.parentNode.replaceChild(newCard, card);
       } else {
         delBtn.textContent = 'Eroare!';
       }
@@ -92,7 +93,6 @@ function createBookCard(book) {
       e.stopPropagation();
       genBtn.disabled = true;
       genBtn.textContent = 'Se generează...';
-      // Apelează backend pentru generare imagine
       const resp = await fetch('/generate-image/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -100,13 +100,10 @@ function createBookCard(book) {
       });
       const data = await resp.json();
       if (data.image) {
-        // Actualizează imaginea pe card
-        genBtn.remove();
-        const img = document.createElement('img');
-        img.className = 'book-image';
-        img.src = `/book_images/${data.image}`;
-        img.alt = book.title;
-        front.insertBefore(img, front.firstChild);
+        book.image = data.image; // actualizezi obiectul carte
+        // Înlocuiești cardul vechi cu unul nou
+        const newCard = createBookCard(book);
+        card.parentNode.replaceChild(newCard, card);
       } else {
         genBtn.textContent = 'Eroare!';
       }
