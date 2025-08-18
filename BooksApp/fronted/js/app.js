@@ -61,6 +61,29 @@ function createBookCard(book) {
     img.src = `/book_images/${book.image}`;
     img.alt = book.title;
     front.appendChild(img);
+
+    // Buton ștergere imagine
+    const delBtn = document.createElement('button');
+    delBtn.className = 'delete-image-btn';
+    delBtn.textContent = 'Șterge imagine';
+    delBtn.onclick = async (e) => {
+      e.stopPropagation();
+      delBtn.disabled = true;
+      delBtn.textContent = 'Se șterge...';
+      const resp = await fetch('/delete-image/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: book.title })
+      });
+      const data = await resp.json();
+      if (data.success) {
+        img.remove();
+        delBtn.remove();
+      } else {
+        delBtn.textContent = 'Eroare!';
+      }
+    };
+    front.appendChild(delBtn);
   } else {
     const genBtn = document.createElement('button');
     genBtn.className = 'generate-image-btn';

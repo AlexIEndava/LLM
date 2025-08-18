@@ -5,6 +5,7 @@ from flask import Flask, send_from_directory, jsonify, request
 from backend.routes.recommend import recommend_router
 from backend.routes.summary import bp as summary_bp
 from backend.routes.generate_image import bp as generate_image_bp
+from backend.routes.delete_image import bp as delete_image_bp
 
 app = Flask(
     __name__,
@@ -30,6 +31,7 @@ def book_images(filename):
 app.register_blueprint(recommend_router, url_prefix="/recommend")
 app.register_blueprint(summary_bp)
 app.register_blueprint(generate_image_bp)
+app.register_blueprint(delete_image_bp)
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=8000, debug=True)

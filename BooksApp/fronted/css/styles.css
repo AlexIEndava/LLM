@@ -150,3 +150,19 @@ li {
 .flip-btn:hover, .generate-image-btn:hover {
   background: #274bb5;
 }
+
+.delete-image-btn {
+  margin: 8px 0 0 0;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  background: #e24a4a;
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.95em;
+  transition: background 0.2s;
+}
+
+.delete-image-btn:hover {
+  background: #b82c2c;
+}
