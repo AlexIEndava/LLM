@@ -27,6 +27,7 @@ def generate_embeddings():
         author = book.get('author')
         genre = book.get('genre')
         description = book.get('description')
+        image = book.get('image', '')
 
         # Obține embedding pentru descriere folosind funcția din llm_client.py
         embedding = get_embedding(description)
@@ -38,12 +39,36 @@ def generate_embeddings():
                 "title": title,
                 "author": author,
                 "genre": genre,
-                "description": description
+                "description": description,
+                "image": image
             }],
             ids=[title.replace(" ", "_")]
         )
 
     print("Embeddings generated and stored successfully.")
+
+def update_book_embedding(book):
+    title = book.get('title')
+    author = book.get('author')
+    genre = book.get('genre')
+    description = book.get('description')
+    image = book.get('image', '')
+
+    embedding = get_embedding(description)
+    # Șterge vechiul embedding dacă există
+    collection.delete(ids=[title.replace(" ", "_")])
+    # Adaugă embedding nou cu imaginea actualizată
+    collection.add(
+        embeddings=[embedding],
+        metadatas=[{
+            "title": title,
+            "author": author,
+            "genre": genre,
+            "description": description,
+            "image": image
+        }],
+        ids=[title.replace(" ", "_")]
+    )
 
 if __name__ == "__main__":
     generate_embeddings()

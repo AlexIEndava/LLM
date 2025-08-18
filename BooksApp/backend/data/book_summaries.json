@@ -4,7 +4,7 @@
     "author": "Stephen R. Covey",
     "genre": "Self-help / Leadership",
     "description": "Stephen Covey presents seven fundamental habits for personal and professional effectiveness, based on solid principles and integrity. The book explains the importance of proactivity, clear goal setting, and win-win relationships. It encourages a balanced life through development in physical, mental, emotional, and spiritual areas.",
-    "image": ""
+    "image": "the_7_habits_of_highly_effective_people.png"
   },
   {
     "title": "The Book of Gestures",
@@ -25,14 +25,14 @@
     "author": "Richard Branson",
     "genre": "Autobiography / Entrepreneurship",
     "description": "Richard Branson shares his journey from the rebellious young man at Virgin Records to a world-renowned business magnate. He shares unconventional strategies, lessons about risk-taking, and how he built a diversified empire. An inspirational testimony about courage, creativity, and perseverance.",
-    "image": ""
+    "image": "losing_my_virginity.png"
   },
   {
     "title": "Small Data",
     "author": "Martin Lindström",
     "genre": "Marketing / Psychology / Business",
     "description": "Martin Lindström shows how careful observations and seemingly insignificant details ('small data') can generate more valuable insights than huge volumes of big data. The book combines case studies and ethnographic research techniques to understand consumers' hidden needs. Learn how to interpret subtle clues in human behavior.",
-    "image": ""
+    "image": "small_data.png"
   },
   {
     "title": "Brain Architecture",
@@ -53,6 +53,6 @@
     "author": "David Goggins",
     "genre": "Autobiography / Self-help",
     "description": "David Goggins tells how he transformed childhood traumas and extreme physical challenges into an invincible mindset. He shares techniques for tough discipline, self-motivation, and overcoming perceived limits. A motivational book that challenges you to stop making excuses and strengthen your willpower.",
-    "image": ""
+    "image": "can't_hurt_me.png"
   }
 ]
