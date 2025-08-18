@@ -3,48 +3,56 @@
     "title": "The 7 Habits of Highly Effective People",
     "author": "Stephen R. Covey",
     "genre": "Self-help / Leadership",
-    "description": "Stephen Covey presents seven fundamental habits for personal and professional effectiveness, based on solid principles and integrity. The book explains the importance of proactivity, clear goal setting, and win-win relationships. It encourages a balanced life through development in physical, mental, emotional, and spiritual areas."
+    "description": "Stephen Covey presents seven fundamental habits for personal and professional effectiveness, based on solid principles and integrity. The book explains the importance of proactivity, clear goal setting, and win-win relationships. It encourages a balanced life through development in physical, mental, emotional, and spiritual areas.",
+    "image": "the_7_habits_of_highly_effective_people.png"
   },
   {
     "title": "The Book of Gestures",
     "author": "Peter Collett",
     "genre": "Non-fiction / Body Language",
-    "description": "Peter Collett analyzes body language and the subtle meaning of gestures in human interactions. He provides practical examples for interpreting hand movements, posture, and facial expressions. The book helps readers improve their nonverbal communication skills and empathy."
+    "description": "Peter Collett analyzes body language and the subtle meaning of gestures in human interactions. He provides practical examples for interpreting hand movements, posture, and facial expressions. The book helps readers improve their nonverbal communication skills and empathy.",
+    "image": ""
   },
   {
     "title": "Elon Musk: Tesla, SpaceX, and the Quest for a Fantastic Future",
     "author": "Ashlee Vance",
     "genre": "Biography / Business / Technology",
-    "description": "Ashlee Vance offers a detailed look at the life and career of Elon Musk, from PayPal to the Tesla and SpaceX revolution. The book illustrates how Musk innovates and takes huge risks to change entire industries. It emphasizes his futuristic vision and unmatched discipline."
+    "description": "Ashlee Vance offers a detailed look at the life and career of Elon Musk, from PayPal to the Tesla and SpaceX revolution. The book illustrates how Musk innovates and takes huge risks to change entire industries. It emphasizes his futuristic vision and unmatched discipline.",
+    "image": ""
   },
   {
     "title": "Losing My Virginity",
     "author": "Richard Branson",
     "genre": "Autobiography / Entrepreneurship",
-    "description": "Richard Branson shares his journey from the rebellious young man at Virgin Records to a world-renowned business magnate. He shares unconventional strategies, lessons about risk-taking, and how he built a diversified empire. An inspirational testimony about courage, creativity, and perseverance."
+    "description": "Richard Branson shares his journey from the rebellious young man at Virgin Records to a world-renowned business magnate. He shares unconventional strategies, lessons about risk-taking, and how he built a diversified empire. An inspirational testimony about courage, creativity, and perseverance.",
+    "image": "losing_my_virginity.png"
   },
   {
     "title": "Small Data",
     "author": "Martin Lindström",
     "genre": "Marketing / Psychology / Business",
-    "description": "Martin Lindström shows how careful observations and seemingly insignificant details ('small data') can generate more valuable insights than huge volumes of big data. The book combines case studies and ethnographic research techniques to understand consumers' hidden needs. Learn how to interpret subtle clues in human behavior."
+    "description": "Martin Lindström shows how careful observations and seemingly insignificant details ('small data') can generate more valuable insights than huge volumes of big data. The book combines case studies and ethnographic research techniques to understand consumers' hidden needs. Learn how to interpret subtle clues in human behavior.",
+    "image": "small_data.png"
   },
   {
     "title": "Brain Architecture",
     "author": "Larry W. Swanson",
     "genre": "Neuroscience / Science",
-    "description": "Larry Swanson provides a clear introduction to the structure and functions of the human brain, from the molecular level to neural networks. He explains the evolution of information processing systems and how they influence behavior. The book is an accessible guide to understanding the anatomical basis of cognitive functions."
+    "description": "Larry Swanson provides a clear introduction to the structure and functions of the human brain, from the molecular level to neural networks. He explains the evolution of information processing systems and how they influence behavior. The book is an accessible guide to understanding the anatomical basis of cognitive functions.",
+    "image": ""
   },
   {
     "title": "Man's Search for Meaning",
     "author": "Viktor E. Frankl",
     "genre": "Psychology / Memoir",
-    "description": "Viktor Frankl describes his experience in Nazi concentration camps and develops logotherapy, the theory that the search for meaning is man's primary motivation. He presents clinical cases and real-life examples to illustrate how meaning helps survival. A profound lesson on resilience and the importance of purpose."
+    "description": "Viktor Frankl describes his experience in Nazi concentration camps and develops logotherapy, the theory that the search for meaning is man's primary motivation. He presents clinical cases and real-life examples to illustrate how meaning helps survival. A profound lesson on resilience and the importance of purpose.",
+    "image": ""
   },
   {
     "title": "Can't Hurt Me",
     "author": "David Goggins",
     "genre": "Autobiography / Self-help",
-    "description": "David Goggins tells how he transformed childhood traumas and extreme physical challenges into an invincible mindset. He shares techniques for tough discipline, self-motivation, and overcoming perceived limits. A motivational book that challenges you to stop making excuses and strengthen your willpower."
+    "description": "David Goggins tells how he transformed childhood traumas and extreme physical challenges into an invincible mindset. He shares techniques for tough discipline, self-motivation, and overcoming perceived limits. A motivational book that challenges you to stop making excuses and strengthen your willpower.",
+    "image": "can't_hurt_me.png"
   }
 ]

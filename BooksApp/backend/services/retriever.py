@@ -24,8 +24,8 @@ for book in books:
 genre_list = sorted(unique_genres)
 title_list = sorted(unique_titles)
 
-print("Genres:", genre_list)
-print("Titles:", title_list)
+#print("Genres:", genre_list)
+#print("Titles:", title_list)
 
 VULGAR_DETECT_PROMPT = (
     "If the user's message contains offensive, vulgar, or inappropriate language in ANY language, "
@@ -50,34 +50,6 @@ GENRE_PROMPT = (
 )
 
 
-SYSTEM_PROMPT = (
-    "You are a helpful assistant that recommends books based only on the provided books: {titles} list.\n\n"
-
-    "📚 Recommendation Rules:\n"
-    "- Only recommend books that appear in the provided books.\n"
-    "- Do not invent or mention any book that is not included.\n"
-    "- If you receive a genre, look for the corresponding titles from the list of books.\n"
-    "- If no suitable match is found, respond politely that no recommendation can be made.\n"
-    "- If multiple books match, list them all.\n"
-    "- If multiple books match the user's interests, you must list all of them.\n"
-    "- Format your response as a bullet list.\n"
-    "- Each bullet must begin with the book title in **double asterisks**, followed by a short reason for the match.\n"
-    "- Do not omit any relevant title from the books.\n\n"
-
-    "🛠️ Tool Usage:\n"
-    "- You must wrap the book title in double asterisks in your response (e.g., **The Great Gatsby**).\n"
-    "- Use the exact title provided in the books list.\n"
-
-    "⚠️ Content Safety:\n"
-    "- If the user message includes offensive or inappropriate language, do not generate a recommendation.\n"
-    "- If the user asks for content that violates OpenAI's content policy, such as hate speech, violence, or adult content, do not generate a recommendation.\n"
-    "- Politely respond with a warning and stop the conversation.\n\n"
-
-    "**Respond ONLY in English.**"
-).format(titles=', '.join(title_list))
-
-
-
 def retrieve_recommendations(query: str, n_results: int = 10):
     
     print(f"Initial query: {query}")
@@ -85,20 +57,20 @@ def retrieve_recommendations(query: str, n_results: int = 10):
     # 1. Detectează vulgaritate
     vulgar_check, _ = get_llm_response(query, system_prompt=VULGAR_DETECT_PROMPT)
     vulgar_check = vulgar_check.strip().lower()
-    print(f"Vulgar detection: {vulgar_check}")
+    #print(f"Vulgar detection: {vulgar_check}")
 
     if vulgar_check == "vulgar":
         return {"vulgar_message": "Your request contains inappropriate language or content. No recommendations can be made."}
 
     # 2. Continuă cu flow-ul normal
     clarified_query, _ = get_llm_response(query, system_prompt=CLARIFY_PROMPT)
-    #clarified_query, _ = get_llm_response(query, system_prompt=SYSTEM_PROMPT)
-    print(f"Clarified query: {clarified_query}")
+
+    #print(f"Clarified query: {clarified_query}")
 
     # Extrage genul cu LLM
     user_genre, _ = get_llm_response(clarified_query, system_prompt=GENRE_PROMPT)
     user_genre = user_genre.strip().lower()
-    print(f"User genre: {user_genre}")
+    #print(f"User genre: {user_genre}")
 
     #if user_genre == "vulgar": return {"vulgar_message": "Your request contains inappropriate language or content. No recommendations can be made."}
 
@@ -119,16 +91,17 @@ def retrieve_recommendations(query: str, n_results: int = 10):
     recommendations = []
     for metadata, distance in zip(results["metadatas"][0], results["distances"][0]):
         genre = metadata.get("genre", "").lower()
-        print(f"Checking book: {metadata['title']} with genre: {genre} and distance: {distance}")
+        #print(f"Checking book: {metadata['title']} with genre: {genre} and distance: {distance}")
         if user_genre != "any":
             sub_genres = [g.strip() for g in genre.split('/')]
-            print(f"Sub-genres: {sub_genres} - User genre in sub-genres: {user_genre in sub_genres}")
+            #print(f"Sub-genres: {sub_genres} - User genre in sub-genres: {user_genre in sub_genres}")
             if user_genre not in sub_genres:
                 continue
         recommendations.append({
             "title": metadata["title"],
             "genre": metadata["genre"],
-            "score": max(0, 1 - distance / 2)
+            "author": metadata.get("author", ""),
+            "image": metadata.get("image", "")
         })
         if len(recommendations) >= n_results:
             break

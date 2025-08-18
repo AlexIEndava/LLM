@@ -3,7 +3,8 @@
 import os
 from flask import Flask, send_from_directory, jsonify, request
 from backend.routes.recommend import recommend_router
-from backend.routes.summary import summary_router
+from backend.routes.summary import bp as summary_bp
+from backend.routes.generate_image import bp as generate_image_bp
 
 app = Flask(
     __name__,
@@ -21,9 +22,14 @@ def serve_ui():
 def serve_static(filename):
     return send_from_directory(app.static_folder, filename)
 
+@app.route('/book_images/<path:filename>')
+def book_images(filename):
+    return send_from_directory('data/book_images', filename)
+
 # Înregistrează rutele API
 app.register_blueprint(recommend_router, url_prefix="/recommend")
-app.register_blueprint(summary_router, url_prefix="/summary")
+app.register_blueprint(summary_bp)
+app.register_blueprint(generate_image_bp)
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=8000, debug=True)
