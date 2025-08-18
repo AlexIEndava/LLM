@@ -1,7 +1,7 @@
 # backend/services/retriever.py
 
 from chromadb import PersistentClient
-from backend.utils.config import OPENAI_API_KEY, PERSIST_DIRECTORY
+from backend.utils.config import PERSIST_DIRECTORY
 from backend.services.llm_client import get_llm_response, get_embedding
 import json
 
@@ -11,7 +11,6 @@ collection = chroma_client.get_or_create_collection(name="book_summaries")
 with open('backend/data/book_summaries.json', encoding='utf-8') as f:
     books = json.load(f)
 unique_genres = set()
-unique_titles = set()
 for book in books:
     genre = book.get("genre", "").strip()
     title = book.get("title", "").strip()
@@ -19,13 +18,7 @@ for book in books:
     if genre:
         for sub_genre in genre.split('/'):
             unique_genres.add(sub_genre.strip())
-    if title:
-        unique_titles.add(title)
 genre_list = sorted(unique_genres)
-title_list = sorted(unique_titles)
-
-#print("Genres:", genre_list)
-#print("Titles:", title_list)
 
 VULGAR_DETECT_PROMPT = (
     "If the user's message contains offensive, vulgar, or inappropriate language in ANY language, "
@@ -54,7 +47,7 @@ def retrieve_recommendations(query: str, n_results: int = 10):
     
     print(f"Initial query: {query}")
 
-    # 1. Detectează vulgaritate
+    # 1. Detectează daca mesajul este vulgar
     vulgar_check, _ = get_llm_response(query, system_prompt=VULGAR_DETECT_PROMPT)
     vulgar_check = vulgar_check.strip().lower()
     #print(f"Vulgar detection: {vulgar_check}")
@@ -62,18 +55,15 @@ def retrieve_recommendations(query: str, n_results: int = 10):
     if vulgar_check == "vulgar":
         return {"vulgar_message": "Your request contains inappropriate language or content. No recommendations can be made."}
 
-    # 2. Continuă cu flow-ul normal
+    # 2. Modeleaza mesajul sa fie mai clar
     clarified_query, _ = get_llm_response(query, system_prompt=CLARIFY_PROMPT)
 
     #print(f"Clarified query: {clarified_query}")
 
-    # Extrage genul cu LLM
+    # 3. Extrage genul din mesaj, este folosit ptr filtrare
     user_genre, _ = get_llm_response(clarified_query, system_prompt=GENRE_PROMPT)
     user_genre = user_genre.strip().lower()
     #print(f"User genre: {user_genre}")
-
-    #if user_genre == "vulgar": return {"vulgar_message": "Your request contains inappropriate language or content. No recommendations can be made."}
-
     
     if user_genre == "any":
         return {"any_message": "Can't find any suitable books."}
