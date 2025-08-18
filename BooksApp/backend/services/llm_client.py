@@ -1,5 +1,6 @@
 from openai import OpenAI
 from backend.utils.config import OPENAI_API_KEY
+import base64
 
 client = OpenAI(api_key=OPENAI_API_KEY)
 
@@ -24,3 +25,16 @@ def get_embedding(text, model="text-embedding-3-small"):
     embedding = response.data[0].embedding
     # Poți returna și usage dacă există, dar la embeddings nu există usage ca la chat completions
     return embedding
+
+def generate_and_save_image(prompt: str, filename: str, model: str = "dall-e-2", size: str = "512x512") -> str:
+    result = client.images.generate(
+        model=model,
+        prompt=prompt,
+        size=size,
+        response_format="b64_json"
+    )
+    image_base64 = result.data[0].b64_json
+    image_bytes = base64.b64decode(image_base64)
+    with open(filename, "wb") as f:
+        f.write(image_bytes)
+    return filename
