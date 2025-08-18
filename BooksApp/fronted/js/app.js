@@ -3,8 +3,11 @@ document.getElementById('recommend-btn').addEventListener('click', async () => {
   const query = document.getElementById('query-input').value;
   const list = document.getElementById('recommendations-list');
   const vulgarDiv = document.getElementById('vulgar-message');
+  const anyDiv = document.getElementById('any-message');
+  
   list.innerHTML = '';
   vulgarDiv.textContent = '';
+  anyDiv.textContent = '';
 
   const response = await fetch('/recommend/', {
     method: 'POST',
@@ -19,6 +22,11 @@ document.getElementById('recommend-btn').addEventListener('click', async () => {
     return;
   }
 
+  if (data.any_message) {
+    anyDiv.textContent = data.any_message;
+    return;
+  }
+
   // Altfel, afișează recomandările
   data.forEach(item => {
     const li = document.createElement('li');
@@ -26,6 +34,8 @@ document.getElementById('recommend-btn').addEventListener('click', async () => {
     list.appendChild(li);
   });
 });
+
+ 
 
 // Funcție pentru rezumat
 document.getElementById('summary-btn').addEventListener('click', async () => {
