@@ -45,12 +45,12 @@ GENRE_PROMPT = (
 
 def retrieve_recommendations(query: str, n_results: int = 10):
     
-    print(f"Initial query: {query}")
+    #print(f"Initial query: {query}")
 
     # 1. Detectează daca mesajul este vulgar
     vulgar_check, _ = get_llm_response(query, system_prompt=VULGAR_DETECT_PROMPT)
     vulgar_check = vulgar_check.strip().lower()
-    print(f"Vulgar detection: {vulgar_check}")
+    #print(f"Vulgar detection: {vulgar_check}")
 
     if vulgar_check == "vulgar":
         return {"vulgar_message": "Your request contains inappropriate language or content. No recommendations can be made."}
@@ -58,7 +58,7 @@ def retrieve_recommendations(query: str, n_results: int = 10):
     # 2. Modeleaza mesajul sa fie mai clar
     clarified_query, _ = get_llm_response(query, system_prompt=CLARIFY_PROMPT)
 
-    print(f"Clarified query: {clarified_query}")
+    #print(f"Clarified query: {clarified_query}")
 
     # 3. Extrage genul din mesaj, este folosit ptr filtrare
     user_genre, _ = get_llm_response(clarified_query, system_prompt=GENRE_PROMPT)

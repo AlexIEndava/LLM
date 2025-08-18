@@ -1,4 +1,4 @@
-// Funcție pentru recomandări
+// Recomandări
 document.getElementById('recommend-btn').addEventListener('click', async () => {
   const query = document.getElementById('query-input').value;
   const cardsContainer = document.getElementById('recommendations-cards');
@@ -19,31 +19,19 @@ document.getElementById('recommend-btn').addEventListener('click', async () => {
     vulgarDiv.textContent = data.vulgar_message;
     return;
   }
-
   if (data.any_message) {
     anyDiv.textContent = data.any_message;
     return;
   }
 
-  // Presupunem că backend-ul returnează o listă de obiecte carte cu .image, .title, .author
   data.forEach(book => {
     const card = createBookCard(book);
     cardsContainer.appendChild(card);
   });
 });
 
-async function fetchSummary(title) {
-  // Endpoint pentru rezumat (presupunem că există)
-  const resp = await fetch('/summary/', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ title })
-  });
-  const data = await resp.json();
-  return data.summary || '';
-}
-
-function createBookCard(book) {
+// Creează card carte (cu flip/rezumat)
+function createBookCard(book, options = {}) {
   const card = document.createElement('div');
   card.className = 'book-card';
 
@@ -54,38 +42,38 @@ function createBookCard(book) {
   const front = document.createElement('div');
   front.className = 'book-card-front';
 
-  // Imagine sau buton de generare
   if (book.image) {
     const img = document.createElement('img');
     img.className = 'book-image';
     img.src = `/book_images/${book.image}?v=${Date.now()}`;
     img.alt = book.title;
     front.appendChild(img);
-
-    // Buton ștergere imagine
-    const delBtn = document.createElement('button');
-    delBtn.className = 'delete-image-btn';
-    delBtn.textContent = 'Șterge imagine';
-    delBtn.onclick = async (e) => {
-      e.stopPropagation();
-      delBtn.disabled = true;
-      delBtn.textContent = 'Se șterge...';
-      const resp = await fetch('/delete-image/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ title: book.title })
-      });
-      const data = await resp.json();
-      if (data.success) {
-        book.image = ""; // actualizezi obiectul carte
-        const newCard = createBookCard(book);
-        card.parentNode.replaceChild(newCard, card);
-      } else {
-        delBtn.textContent = 'Eroare!';
-      }
-    };
-    front.appendChild(delBtn);
-  } else {
+    if (!options.hideActions) {
+      // Buton ștergere imagine
+      const delBtn = document.createElement('button');
+      delBtn.className = 'delete-image-btn';
+      delBtn.textContent = 'Șterge imagine';
+      delBtn.onclick = async (e) => {
+        e.stopPropagation();
+        delBtn.disabled = true;
+        delBtn.textContent = 'Se șterge...';
+        const resp = await fetch('/delete-image/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title: book.title })
+        });
+        const data = await resp.json();
+        if (data.success) {
+          book.image = "";
+          const newCard = createBookCard(book);
+          card.parentNode.replaceChild(newCard, card);
+        } else {
+          delBtn.textContent = 'Eroare!';
+        }
+      };
+      front.appendChild(delBtn);
+    }
+  } else if (!options.hideActions) {
     const genBtn = document.createElement('button');
     genBtn.className = 'generate-image-btn';
     genBtn.textContent = 'Generează imagine';
@@ -100,8 +88,7 @@ function createBookCard(book) {
       });
       const data = await resp.json();
       if (data.image) {
-        book.image = data.image; // actualizezi obiectul carte
-        // Înlocuiești cardul vechi cu unul nou
+        book.image = data.image;
         const newCard = createBookCard(book);
         card.parentNode.replaceChild(newCard, card);
       } else {
@@ -111,7 +98,6 @@ function createBookCard(book) {
     front.appendChild(genBtn);
   }
 
-  // Titlu și autor
   const title = document.createElement('div');
   title.className = 'book-title';
   title.textContent = book.title;
@@ -122,53 +108,68 @@ function createBookCard(book) {
   author.textContent = book.author;
   front.appendChild(author);
 
-  // Buton flip
-  const flipBtn = document.createElement('button');
-  flipBtn.className = 'flip-btn';
-  flipBtn.textContent = 'Vezi rezumat';
-  flipBtn.onclick = (e) => {
-    e.stopPropagation();
-    card.classList.add('flipped');
-    // Lazy load summary dacă nu există deja
-    if (!back.querySelector('.book-summary').textContent) {
-      fetchSummary(book.title).then(summary => {
-        back.querySelector('.book-summary').textContent = summary || 'Rezumat indisponibil.';
-      });
-    }
-  };
-  front.appendChild(flipBtn);
-
-  // --- Back ---
+  // --- Back (rezumat) ---
   const back = document.createElement('div');
   back.className = 'book-card-back';
 
+  const summaryTitle = document.createElement('div');
+  summaryTitle.className = 'book-summary-title';
+  summaryTitle.textContent = 'Rezumat';
+  back.appendChild(summaryTitle);
+
   const summary = document.createElement('div');
   summary.className = 'book-summary';
-  summary.textContent = ''; // Lazy load la flip
+  summary.textContent = 'Se încarcă...';
   back.appendChild(summary);
-
-  // Buton back
-  const backBtn = document.createElement('button');
-  backBtn.className = 'flip-btn';
-  backBtn.textContent = 'Înapoi';
-  backBtn.onclick = (e) => {
-    e.stopPropagation();
-    card.classList.remove('flipped');
-  };
-  back.appendChild(backBtn);
 
   inner.appendChild(front);
   inner.appendChild(back);
   card.appendChild(inner);
 
+  let summaryLoaded = false;
+
+  card.onclick = async function () {
+    card.classList.toggle('flipped');
+    if (!summaryLoaded && card.classList.contains('flipped')) {
+      summary.textContent = 'Se încarcă...';
+      try {
+        const resp = await fetch('/summary/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title: book.title })
+        });
+        const data = await resp.json();
+        summary.textContent = data.summary || 'Nu există rezumat disponibil.';
+        summaryLoaded = true;
+      } catch {
+        summary.textContent = 'Eroare la încărcarea rezumatului.';
+      }
+    }
+  };
+
   return card;
 }
 
-// Funcție pentru rezumat
-document.getElementById('summary-btn').addEventListener('click', async () => {
-  const title = encodeURIComponent(document.getElementById('title-input').value);
-  const response = await fetch(`/summary/?title=${title}`);
-  const data = await response.json();
-  const div = document.getElementById('summary-result');
-  div.innerHTML = `<h3>${data.title}</h3><p>${data.summary}</p>`;
-});
+// Navigare între secțiuni
+document.getElementById('goto-recommend').onclick = () => {
+  document.getElementById('recommend-section').style.display = '';
+  document.getElementById('library-section').style.display = 'none';
+};
+
+document.getElementById('goto-library').onclick = () => {
+  document.getElementById('recommend-section').style.display = 'none';
+  document.getElementById('library-section').style.display = '';
+  loadLibrary();
+};
+
+// Încărcare toate cărțile
+async function loadLibrary() {
+  const container = document.getElementById('library-cards');
+  container.innerHTML = '';
+  const resp = await fetch('/all-books/');
+  const books = await resp.json();
+  books.forEach(book => {
+    const card = createBookCard(book, { hideActions: true });
+    container.appendChild(card);
+  });
+}
