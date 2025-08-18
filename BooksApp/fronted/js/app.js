@@ -52,7 +52,7 @@ function createBookCard(book, options = {}) {
       // Buton ștergere imagine
       const delBtn = document.createElement('button');
       delBtn.className = 'delete-image-btn';
-      delBtn.textContent = 'Șterge imagine';
+      delBtn.textContent = 'Delete Image';
       delBtn.onclick = async (e) => {
         e.stopPropagation();
         delBtn.disabled = true;
@@ -76,7 +76,7 @@ function createBookCard(book, options = {}) {
   } else if (!options.hideActions) {
     const genBtn = document.createElement('button');
     genBtn.className = 'generate-image-btn';
-    genBtn.textContent = 'Generează imagine';
+    genBtn.textContent = 'Generate Image';
     genBtn.onclick = async (e) => {
       e.stopPropagation();
       genBtn.disabled = true;
@@ -114,12 +114,12 @@ function createBookCard(book, options = {}) {
 
   const summaryTitle = document.createElement('div');
   summaryTitle.className = 'book-summary-title';
-  summaryTitle.textContent = 'Rezumat';
+  summaryTitle.textContent = 'Summary';
   back.appendChild(summaryTitle);
 
   const summary = document.createElement('div');
   summary.className = 'book-summary';
-  summary.textContent = 'Se încarcă...';
+  summary.textContent = 'Loading...';
   back.appendChild(summary);
 
   inner.appendChild(front);
@@ -139,7 +139,7 @@ function createBookCard(book, options = {}) {
           body: JSON.stringify({ title: book.title })
         });
         const data = await resp.json();
-        summary.textContent = data.summary || 'Nu există rezumat disponibil.';
+        summary.textContent = data.summary || 'No summary available.';
         summaryLoaded = true;
       } catch {
         summary.textContent = 'Eroare la încărcarea rezumatului.';
@@ -154,6 +154,14 @@ function createBookCard(book, options = {}) {
 document.getElementById('goto-recommend').onclick = () => {
   document.getElementById('recommend-section').style.display = '';
   document.getElementById('library-section').style.display = 'none';
+  // Reîncarcă recomandările dacă există deja un query
+  const query = document.getElementById('query-input').value;
+  if (query) {
+    document.getElementById('recommendations-cards').innerHTML = '';
+    document.getElementById('vulgar-message').textContent = '';
+    document.getElementById('any-message').textContent = '';
+    document.getElementById('recommend-btn').click();
+  }
 };
 
 document.getElementById('goto-library').onclick = () => {
@@ -169,7 +177,7 @@ async function loadLibrary() {
   const resp = await fetch('/all-books/');
   const books = await resp.json();
   books.forEach(book => {
-    const card = createBookCard(book, { hideActions: true });
+    const card = createBookCard(book); // fără hideActions!
     container.appendChild(card);
   });
 }

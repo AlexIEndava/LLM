@@ -63,7 +63,7 @@ def retrieve_recommendations(query: str, n_results: int = 10):
     # 3. Extrage genul din mesaj, este folosit ptr filtrare
     user_genre, _ = get_llm_response(clarified_query, system_prompt=GENRE_PROMPT)
     user_genre = user_genre.strip().lower()
-    print(f"User genre: {user_genre}")
+    #print(f"User genre: {user_genre}")
     
     if user_genre == "any":
         return {"any_message": "Can't find any suitable books."}
