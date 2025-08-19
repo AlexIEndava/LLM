@@ -8,6 +8,7 @@ from backend.routes.delete_image import bp as delete_image_bp
 from backend.routes.library import bp as library_bp
 from backend.routes.summary import bp as summary_bp
 from backend.routes.speech_to_text import bp as speech_to_text_bp
+from backend.routes.tts import bp as tts_bp
 
 app = Flask(
     __name__,
@@ -36,6 +37,7 @@ app.register_blueprint(delete_image_bp)
 app.register_blueprint(library_bp)
 app.register_blueprint(summary_bp)
 app.register_blueprint(speech_to_text_bp)
+app.register_blueprint(tts_bp)
 
 if __name__ == "__main__":
     app.run(host="127.0.0.1", port=8000, debug=True)
