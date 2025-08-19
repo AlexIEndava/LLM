@@ -231,3 +231,7 @@ button:hover, .nav-btn:hover {
   gap: 18px;
   margin-bottom: 8px;
 }
+
+#record-btn:active {
+  opacity: 0.8;
+}

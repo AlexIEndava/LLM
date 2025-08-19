@@ -181,3 +181,57 @@ async function loadLibrary() {
     container.appendChild(card);
   });
 }
+
+// Reconnaissance vocală
+const recordBtn = document.getElementById('record-btn');
+const recordBtnText = document.getElementById('record-btn-text');
+const queryInput = document.getElementById('query-input');
+
+let mediaRecorder;
+let audioChunks = [];
+let isRecording = false;
+let currentStream = null; // <--- adaugă această variabilă
+
+recordBtn.onclick = async () => {
+  if (!isRecording) {
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      currentStream = await navigator.mediaDevices.getUserMedia({ audio: true }); // <--- salvează stream-ul
+      mediaRecorder = new MediaRecorder(currentStream);
+      audioChunks = [];
+      mediaRecorder.ondataavailable = e => audioChunks.push(e.data);
+      mediaRecorder.onstop = async () => {
+        // Oprește toate track-urile audio după stop
+        if (currentStream) {
+          currentStream.getTracks().forEach(track => track.stop());
+          currentStream = null;
+        }
+        const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+        const formData = new FormData();
+        formData.append('audio', audioBlob, 'speech.webm');
+        recordBtn.disabled = true;
+        recordBtnText.textContent = "Processing...";
+        try {
+          const resp = await fetch('/speech-to-text/', {
+            method: 'POST',
+            body: formData
+          });
+          const data = await resp.json();
+          queryInput.value = data.text || '';
+        } catch (err) {
+          queryInput.value = '';
+        }
+        recordBtn.disabled = false;
+        recordBtnText.textContent = "Start Recording";
+      };
+      mediaRecorder.start();
+      isRecording = true;
+      recordBtnText.textContent = "Stop Recording";
+      recordBtn.style.background = "linear-gradient(90deg, #4cff8f 60%, #ffb347 100%)";
+    }
+  } else {
+    mediaRecorder.stop();
+    isRecording = false;
+    recordBtnText.textContent = "Start Recording";
+    recordBtn.style.background = "linear-gradient(90deg, #ff4c4c 60%, #ffb347 100%)";
+  }
+};
