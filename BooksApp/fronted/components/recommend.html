@@ -1,9 +1,12 @@
 <!-- components/recommend.html -->
 <section id="recommend-section">
   <h2 style="text-align:center;">Recommend Books</h2>
-  <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 24px;">
+  <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 24px; gap: 10px;">
     <input id="query-input" type="text" placeholder="Type a topic or genre..." />
     <button id="recommend-btn">Get Recommendations</button>
+    <button id="record-btn" style="background: linear-gradient(90deg, #ff4c4c 60%, #ffb347 100%); color: #fff; border: none; border-radius: 8px; padding: 10px 18px; font-weight: 500; cursor: pointer; transition: background 0.2s;">
+      <span id="record-btn-text">Start Recording</span>
+    </button>
   </div>
   <div id="vulgar-message"></div>
   <div id="any-message"></div>
