@@ -122,6 +122,39 @@ function createBookCard(book, options = {}) {
   summary.textContent = 'Loading...';
   back.appendChild(summary);
 
+  // === Buton Listen pentru summary ===
+  const listenBtn = document.createElement('button');
+  listenBtn.className = 'tts-btn';
+  listenBtn.textContent = '🔊 Listen';
+  listenBtn.style.marginTop = '12px';
+  listenBtn.onclick = async function(e) {
+    e.stopPropagation();
+    listenBtn.disabled = true;
+    listenBtn.textContent = "🔊 Loading...";
+    try {
+      const resp = await fetch('/tts/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: summary.textContent })
+      });
+      if (!resp.ok) throw new Error('TTS failed');
+      const audioBlob = await resp.blob();
+      const audioUrl = URL.createObjectURL(audioBlob);
+      const audio = new Audio(audioUrl);
+      audio.play();
+      audio.onended = () => {
+        URL.revokeObjectURL(audioUrl);
+        listenBtn.textContent = "🔊 Listen";
+        listenBtn.disabled = false;
+      };
+    } catch (err) {
+      listenBtn.textContent = "🔊 Listen";
+      listenBtn.disabled = false;
+      alert('Could not synthesize speech.');
+    }
+  };
+  back.appendChild(listenBtn);
+
   inner.appendChild(front);
   inner.appendChild(back);
   card.appendChild(inner);
