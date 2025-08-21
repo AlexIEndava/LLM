@@ -44,38 +44,52 @@ Open [http://127.0.0.1:8000](http://127.0.0.1:8000) in your browser.
 BooksApp/
 │
 ├── backend/
-│   ├── app.py                  # Flask server, main routes
-│   ├── .env                    # API keys and config
+│   │   .env                  # Environment variables (API keys, config)
+│   │   app.py                # Main Flask app, registers all routes and serves frontend
+│   │
 │   ├── data/
-│   │   ├── book_summaries.json # Book database (title, author, genre, description, image)
-│   │   ├── book_images/        # Book cover images
-│   │   └── chroma_db/          # ChromaDB vector store files
-│   ├── routes/                 # Flask blueprints for API endpoints
-│   │   ├── recommend.py        # Book recommendation logic
-│   │   ├── generate_image.py   # Book cover generation
-│   │   ├── delete_image.py     # Book cover deletion
-│   │   ├── library.py          # Library management
-│   │   ├── summary.py          # Book summary endpoint
-│   │   ├── speech_to_text.py   # Speech-to-text endpoint
-│   │   └── tts.py              # Text-to-speech endpoint
-│   ├── services/
-│   │   ├── embedding_service.py# Embedding generation and storage
-│   │   ├── llm_client.py       # LLM API client
-│   │   ├── openai_client.py    # OpenAI API integration
-│   │   └── retriever.py        # Book retriever logic
-│   └── utils/
-│       └── config.py           # Configuration and constants
+│   │   │   book_summaries.json   # Main book database (title, author, genre, description, image)
+│   │   │
+│   │   ├── book_images/         # AI-generated book cover images (PNG)
+│   │   │   └── *.png
+│   │   │
+│   │   └── chroma_db/           # ChromaDB vector store files (for semantic search)
+│   │       ├── chroma.sqlite3
+│   │       └── ... (binary index files)
+│   │
+│   ├── routes/                  # Flask blueprints for API endpoints
+│   │   │   recommend.py         # Book recommendation logic (semantic search, moderation)
+│   │   │   generate_image.py    # Generate book cover images using OpenAI
+│   │   │   delete_image.py      # Delete book cover images
+│   │   │   library.py           # Library management (list all books)
+│   │   │   summary.py           # Get book summary by title
+│   │   │   speech_to_text.py    # Speech-to-text endpoint (audio to text)
+│   │   │   tts.py               # Text-to-speech endpoint (summary to audio)
+│   │   │   __init__.py
+│   │
+│   ├── services/                # Core business logic and integrations
+│   │   │   embedding_service.py # Generate and store embeddings for books
+│   │   │   llm_client.py        # OpenAI API client (LLM, embeddings, TTS, STT, image)
+│   │   │   retriever.py         # Recommendation and retrieval logic
+│   │   │   summary_service.py   # Service for fetching book summaries
+│   │
+│   ├── utils/
+│       │   config.py            # Configuration constants (API keys, paths)
+│   
 │
-├── fronted/
-│   ├── index.html              # Main web UI
-│   ├── components/
-│   │   ├── header.html
-│   │   ├── library.html
-│   │   └── recommend.html
-│   ├── css/
-│   │   └── styles.css
-│   └── js/
-│       └── app.js
+└── fronted/
+    │   index.html               # Main web UI (loads components dynamically)
+    │
+    ├── components/
+    │   │   header.html          # Header/navigation bar
+    │   │   library.html         # Library section (all books)
+    │   │   recommend.html       # Recommendation section (query, results)
+    │
+    ├── css/
+    │   │   styles.css           # Main stylesheet
+    │
+    └── js/
+        │   app.js              # Main frontend logic (UI, API calls, TTS/STT, image actions)
 ```
 
 ---
