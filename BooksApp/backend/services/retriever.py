@@ -13,7 +13,7 @@ with open('backend/data/book_summaries.json', encoding='utf-8') as f:
 unique_genres = set()
 for book in books:
     genre = book.get("genre", "").strip()
-    title = book.get("title", "").strip()
+
     # Desparte genurile compuse
     if genre:
         for sub_genre in genre.split('/'):
@@ -45,12 +45,12 @@ GENRE_PROMPT = (
 
 def retrieve_recommendations(query: str, n_results: int = 10):
     
-    #print(f"Initial query: {query}")
+    
 
     # 1. Detectează daca mesajul este vulgar
     vulgar_check, _ = get_llm_response(query, system_prompt=VULGAR_DETECT_PROMPT)
     vulgar_check = vulgar_check.strip().lower()
-    #print(f"Vulgar detection: {vulgar_check}")
+    
 
     if vulgar_check == "vulgar":
         return {"vulgar_message": "Your request contains inappropriate language or content. No recommendations can be made."}
@@ -58,12 +58,12 @@ def retrieve_recommendations(query: str, n_results: int = 10):
     # 2. Modeleaza mesajul sa fie mai clar
     clarified_query, _ = get_llm_response(query, system_prompt=CLARIFY_PROMPT)
 
-    #print(f"Clarified query: {clarified_query}")
+    
 
     # 3. Extrage genul din mesaj, este folosit ptr filtrare
     user_genre, _ = get_llm_response(clarified_query, system_prompt=GENRE_PROMPT)
     user_genre = user_genre.strip().lower()
-    #print(f"User genre: {user_genre}")
+    
     
     if user_genre == "any":
         return {"any_message": "Can't find any suitable books."}
@@ -79,12 +79,10 @@ def retrieve_recommendations(query: str, n_results: int = 10):
     )
 
     recommendations = []
-    for metadata, distance in zip(results["metadatas"][0], results["distances"][0]):
+    for metadata in results["metadatas"][0]:
         genre = metadata.get("genre", "").lower()
-        #print(f"Checking book: {metadata['title']} with genre: {genre} and distance: {distance}")
         if user_genre != "any":
             sub_genres = [g.strip() for g in genre.split('/')]
-            #print(f"Sub-genres: {sub_genres} - User genre in sub-genres: {user_genre in sub_genres}")
             if user_genre not in sub_genres:
                 continue
         recommendations.append({

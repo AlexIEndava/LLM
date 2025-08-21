@@ -28,6 +28,7 @@ cd BooksApp
 
 # Add your OpenAI key in backend/.env
 echo "OPENAI_API_KEY=sk-..." > backend/.env
+PERSIST_DIRECTORY=./backend/data/chroma_db
 
 pip install -r requirements.txt
 python backend/app.py

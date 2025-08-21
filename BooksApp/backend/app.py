@@ -1,7 +1,7 @@
 # backend/app.py
 
 import os
-from flask import Flask, send_from_directory, jsonify, request
+from flask import Flask, send_from_directory
 from backend.routes.recommend import recommend_router
 from backend.routes.generate_image import bp as generate_image_bp
 from backend.routes.delete_image import bp as delete_image_bp

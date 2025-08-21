@@ -1,6 +1,6 @@
 # backend/routes/summary.py
 from flask import Blueprint, request, jsonify
-from backend.services.openai_client import get_summary_by_title
+from backend.services.summary_service import get_summary_by_title
 
 bp = Blueprint('summary', __name__)
 
