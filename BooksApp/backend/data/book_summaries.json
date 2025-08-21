@@ -54,5 +54,47 @@
     "genre": "Autobiography / Self-help",
     "description": "David Goggins tells how he transformed childhood traumas and extreme physical challenges into an invincible mindset. He shares techniques for tough discipline, self-motivation, and overcoming perceived limits. A motivational book that challenges you to stop making excuses and strengthen your willpower.",
     "image": "can't_hurt_me.png"
+  },
+  {
+    "title": "You Are the Placebo",
+    "author": "Joe Dispenza",
+    "genre": "Self-help / Science",
+    "description": "Joe Dispenza explores the power of the mind to influence the body and health. The book presents case studies and research on the placebo effect and how thoughts can change biological reality.",
+    "image": ""
+  },
+  {
+    "title": "Alice in Wonderland",
+    "author": "Lewis Carroll",
+    "genre": "Fantasy / Children",
+    "description": "A classic story about Alice's fantastic adventures in a world full of bizarre characters and absurd rules. A book about imagination, curiosity, and discovery.",
+    "image": "alice_in_wonderland.png"
+  },
+  {
+    "title": "The Hobbit",
+    "author": "J.R.R. Tolkien",
+    "genre": "Fantasy / Adventure",
+    "description": "Bilbo Baggins embarks on an epic adventure with a group of dwarves to recover the treasure guarded by the dragon Smaug. A story about courage, friendship, and self-discovery.",
+    "image": "the_hobbit.png"
+  },
+  {
+    "title": "The Last Wish",
+    "author": "Andrzej Sapkowski",
+    "genre": "Fantasy / Short Stories",
+    "description": "The first collection of stories from the Witcher universe, following monster hunter Geralt of Rivia in adventures full of magic, morality, and fantastic creatures.",
+    "image": ""
+  },
+  {
+    "title": "The Wish of Destiny",
+    "author": "Andrzej Sapkowski",
+    "genre": "Fantasy / Short Stories",
+    "description": "The continuation of Geralt of Rivia's adventures, where destiny, choices, and magic intertwine in captivating stories from the Witcher world.",
+    "image": "the_wish_of_destiny.png"
+  },
+  {
+    "title": "Fire & Blood",
+    "author": "George R.R. Martin",
+    "genre": "Fantasy / History",
+    "description": "A chronicle of the Targaryen dynasty from the Game of Thrones universe, featuring battles for the throne, dragons, and political intrigue in a rich fictional history.",
+    "image": ""
   }
 ]

@@ -122,15 +122,38 @@ function createBookCard(book, options = {}) {
   summary.textContent = 'Loading...';
   back.appendChild(summary);
 
-  // === Buton Listen pentru summary ===
+  // === Buton Listen/Stop pentru summary ===
   const listenBtn = document.createElement('button');
   listenBtn.className = 'tts-btn';
   listenBtn.textContent = '🔊 Listen';
   listenBtn.style.marginTop = '12px';
+
   listenBtn.onclick = async function(e) {
     e.stopPropagation();
+
+    // Dacă deja redă acest audio, oprește-l
+    if (currentAudio && currentBtn === listenBtn) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      currentAudio = null;
+      listenBtn.textContent = "🔊 Listen";
+      listenBtn.disabled = false;
+      currentBtn = null;
+      return;
+    }
+
+    // Dacă redă alt audio, oprește-l și resetează butonul precedent
+    if (currentAudio && currentBtn && currentBtn !== listenBtn) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      currentBtn.textContent = "🔊 Listen";
+      currentBtn.disabled = false;
+      currentAudio = null;
+      currentBtn = null;
+    }
+
     listenBtn.disabled = true;
-    listenBtn.textContent = "🔊 Loading...";
+    listenBtn.textContent = "⏹ Stop";
     try {
       const resp = await fetch('/tts/', {
         method: 'POST',
@@ -141,16 +164,22 @@ function createBookCard(book, options = {}) {
       const audioBlob = await resp.blob();
       const audioUrl = URL.createObjectURL(audioBlob);
       const audio = new Audio(audioUrl);
+      currentAudio = audio;
+      currentBtn = listenBtn;
       audio.play();
+      listenBtn.disabled = false;
       audio.onended = () => {
         URL.revokeObjectURL(audioUrl);
         listenBtn.textContent = "🔊 Listen";
-        listenBtn.disabled = false;
+        currentAudio = null;
+        currentBtn = null;
       };
     } catch (err) {
       listenBtn.textContent = "🔊 Listen";
       listenBtn.disabled = false;
       alert('Could not synthesize speech.');
+      currentAudio = null;
+      currentBtn = null;
     }
   };
   back.appendChild(listenBtn);
@@ -224,6 +253,8 @@ let mediaRecorder;
 let audioChunks = [];
 let isRecording = false;
 let currentStream = null; // <--- adaugă această variabilă
+let currentAudio = null;
+let currentBtn = null;
 
 recordBtn.onclick = async () => {
   if (!isRecording) {
