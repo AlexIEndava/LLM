@@ -23,7 +23,7 @@
 ## 🚀 Quickstart
 
 ```bash
-git clone https://github.com/AlexIEndava/BooksApp.git
+git clone https://github.com/AlexIEndava/LLM.git
 cd BooksApp
 
 # Add your OpenAI key in backend/.env
