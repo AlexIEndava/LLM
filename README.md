@@ -23,7 +23,7 @@
 ## 🚀 Quickstart
 
 ```bash
-git clone https://github.com/username/BooksApp.git
+git clone https://github.com/AlexIEndava/BooksApp.git
 cd BooksApp
 
 # Add your OpenAI key in backend/.env
@@ -31,7 +31,9 @@ echo "OPENAI_API_KEY=sk-..." > backend/.env
 PERSIST_DIRECTORY=./backend/data/chroma_db
 
 pip install -r requirements.txt
-python backend/app.py
+cd BooksApp
+python -m backend.services.embedding_service  (for updating ChromaDB)
+python -m backend.app
 ```
 
 Open [http://127.0.0.1:8000](http://127.0.0.1:8000) in your browser.
